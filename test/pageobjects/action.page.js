@@ -72,6 +72,19 @@ class actionPage {
             return $(`//div[@aria-label = 'Timeline: Followers']//span[contains(text(), '@')]`);
         }
     */
+
+    async convertToNumber(value) {
+
+        if (value.includes('k')) {
+
+            return await parseFloat(value) * 1000;
+
+        } else {
+
+            return await parseFloat(value) * 1000;
+        }
+    }
+
     async userLogin(userName, password) {
         try {
 
@@ -134,9 +147,13 @@ class actionPage {
 
                 }
 
-                let userfollowersCount = await (this.followersCount).getText();
+                let userfollowersCountValue = await (this.followersCount).getText();
 
-                let userfollowingCount = await (this.followingCount).getText();
+                let userfollowersCount = await this.convertToNumber(userfollowersCountValue);
+
+                let userfollowingCountValue = await (this.followingCount).getText();
+
+                let userfollowingCount = await this.convertToNumber(userfollowingCountValue);
 
                 await this.following.click();
 
