@@ -58,30 +58,19 @@ class actionPage {
         return $(`//section//span[contains(text(), 'Follow')]`);
     }
 
-
-    /*
-        get userProfile() {
-            return $(`//span[text()= 'Profile']`);   // User profile button from the Nav bar.
-        }
-    
-        get myFollowers() {
-            return $(`//span[text()= 'Followers']`);   // Followers button from the profile.
-        }
-    
-        get followerUsername() {
-            return $(`//div[@aria-label = 'Timeline: Followers']//span[contains(text(), '@')]`);
-        }
-    */
-
     async convertToNumber(value) {
+
+        value = value.replace(/,/g, '');
 
         if (value.includes('k')) {
 
-            return await parseFloat(value) * 1000;
+            return parseFloat(value.replace('k', '')) * 1000;
 
+        } else if (value.includes('M')) {
+            return parseFloat(value.replace('M', '')) * 1000000;
         } else {
 
-            return await parseFloat(value) * 1000;
+            return parseFloat(value);
         }
     }
 

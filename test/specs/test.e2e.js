@@ -10,7 +10,7 @@ describe('Scrape the details', () => {
 
         await ActionPage.userLogin(userName, password);
 
-        let keyword = 'NFTs'
+        let keyword = 'Crypto'
 
         let value = await ActionPage.scrapeSearchResult(keyword);
 
