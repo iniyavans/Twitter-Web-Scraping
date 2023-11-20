@@ -4,15 +4,17 @@ const ActionPage = require('../pageobjects/action.page')
 describe('Scrape the details', () => {
     it('Scrape the details', async () => {
 
-        var userName = 'iniyavan_choco_'
+        let userName = 'iniyavan_choco_'
 
-        var password = 'Iniyavan420@'
+        let password = 'Iniyavan420@'
 
         await ActionPage.userLogin(userName, password);
 
-        var keyword = 'NFTs'
+        let keyword = 'NFTs'
 
-        await ActionPage.scrapeSearchResult(keyword);
+        let value = await ActionPage.scrapeSearchResult(keyword);
+
+        console.log(value);
     })
 });
 

@@ -43,15 +43,19 @@ class actionPage {
     }
 
     get followersCount() {
-        return $(`(//div//a//span//span)[3]`)
+        return $(`(//div//a//span//span)[3]`);
     }
 
     get following() {
-        return $(`//span[text() = 'Following']`)
+        return $(`//span[text() = 'Following']`);
     }
 
     get followers() {
-        return $(`//span[text() = 'Followers']`)
+        return $(`//span[text() = 'Followers']`);
+    }
+
+    get enableFollow() {
+        return $(`//section//span[contains(text(), 'Follow')]`);
     }
 
 
@@ -93,36 +97,76 @@ class actionPage {
     }
 
     async scrapeSearchResult(Keyword) {
+
         try {
 
-            await browser.url(`https://twitter.com/search?q=${Keyword}&src=typed_query&f=user`)
+            let userDetail;
 
-            const element = this.peopleUsername;
+            let userDetails = [];
 
-            const elementText = await element.getText();
+            let followingUserName = [];
 
-            console.log('Element Text:', elementText);
+            await browser.url(`https://twitter.com/search?q=${Keyword}&src=typed_query&f=user`);
 
-            await browser.newWindow(`https://twitter.com/${elementText}`);
+            await this.enableFollow.waitForClickable(10000);
 
-            var Fullname = await (this.userFulName).getText();
+            const peopleUsernames = await $$(`//section//span[contains(text(), '@')]`);
 
-            var userName = await (this.userName).getText();
+            for (const element of peopleUsernames) {
 
-            var userDescription = await (this.userDescription).getText();
+                const elementText = await element.getText();
 
-            var userfollowersCount = await (this.followersCount).getText();
+                await browser.newWindow(`https://twitter.com/${elementText}`);
 
-            var userfollowingCount = await (this.followingCount).getText();
+                let Fullname = await (this.userFulName).getText();
 
-            console.log('User Details:', Fullname, userName, userDescription, userfollowersCount, userfollowingCount);
+                let userName = await (this.userName).getText();
 
-            await browser.closeWindow();
+                let userDescriptionXpath = await this.userDescription;
 
-            await browser.switchWindow(`https://twitter.com/search?q=${Keyword}&src=typed_query&f=user`);
+                const isElementDisplayed = await userDescriptionXpath.isDisplayed();
+
+                let userDescription = null;
+
+                if (isElementDisplayed) {
+
+                    userDescription = await userDescriptionXpath.getText();
+
+                }
+
+                let userfollowersCount = await (this.followersCount).getText();
+
+                let userfollowingCount = await (this.followingCount).getText();
+
+                await this.following.click();
+
+                await this.enableFollow.waitForClickable(10000);
+
+                const peopleFollowingnames = await $$(`//section//span[contains(text(), '@')]`);
+
+                for (const element of peopleFollowingnames) {
+
+                    let followingUsers = await element.getText();
+
+                    followingUserName.push(followingUsers);
+
+                }
+
+                await browser.closeWindow();
+
+                await browser.switchWindow(`https://twitter.com/search?q=${Keyword}&src=typed_query&f=user`);
+
+                userDetail = [Fullname, userName, userDescription, userfollowersCount, userfollowingCount, followingUserName];
+
+                userDetails.push(userDetail);
+            }
+
+            return userDetails;
 
         } catch (error) {
+
             console.log('An error occurred:', error.message);
+
         }
 
     }
