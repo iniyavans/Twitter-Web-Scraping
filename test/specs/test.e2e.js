@@ -7,15 +7,15 @@ const env = dotenv.config().parsed
 describe('Scrape the details', () => {
     it('Scrape the details', async () => {
 
-        let userName = env.TWITTER_USERNAME
+        let userName = env.X_USERNAME
 
-        let password = env.TWITTER_PASSWORD
+        let password = env.X_PASSWORD
 
         await ActionPage.userLogin(userName, password);
 
         let keyword = 'Crypto'
 
-        let value = await ActionPage.scrapeSearchResult(keyword);
+        const value = await ActionPage.scrapeSearchResult(keyword);
 
         console.log(value);
 

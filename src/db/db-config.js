@@ -8,7 +8,7 @@ function connectToMongoDB(env) {
     });
 
     mongoose.connection.on('connected', () => {
-        console.log('Connected to MongoDB successfully!');
+        console.log('MongoDB connected successfully!');
         return;
     });
 
