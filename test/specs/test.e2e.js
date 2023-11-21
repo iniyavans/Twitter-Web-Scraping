@@ -15,9 +15,11 @@ describe('Scrape the details', () => {
 
         let keyword = 'Crypto'
 
-        value = await ActionPage.scrapeSearchResult(keyword);
+        let value = await ActionPage.scrapeSearchResult(keyword);
 
-        storeScrapData(value ,env)
+        console.log(value);
+
+        storeScrapData(value, env)
 
     })
 });

@@ -35,7 +35,7 @@ class actionPage {
     }
 
     get userDescription() {
-        return $(`//div[@data-testid="UserDescription"]//span`)
+        return $(`//div[@data-testid="UserDescription"]`)
     }
 
     get followingCount() {
@@ -56,22 +56,6 @@ class actionPage {
 
     get enableFollow() {
         return $(`//section//span[contains(text(), 'Follow')]`);
-    }
-
-    async convertToNumber(value) {
-
-        value = value.replace(/,/g, '');
-
-        if (value.includes('k')) {
-
-            return parseFloat(value.replace('k', '')) * 1000;
-
-        } else if (value.includes('M')) {
-            return parseFloat(value.replace('M', '')) * 1000000;
-        } else {
-
-            return parseFloat(value);
-        }
     }
 
     async userLogin(userName, password) {
@@ -136,11 +120,9 @@ class actionPage {
 
                 }
 
-                let userfollowersCountValue = await (this.followersCount).getText();
-                let userfollowingCountValue = await (this.followingCount).getText();
+                let userfollowersCount = await (this.followersCount).getText();
 
-                let userfollowersCount = await this.convertToNumber(userfollowersCountValue);
-                let userfollowingCount = userfollowingCountValue;
+                let userfollowingCount = await (this.followingCount).getText();
 
                 await this.following.click();
 
