@@ -14,5 +14,9 @@
     "@wdio/local-runner": "^8.23.1",
     "@wdio/mocha-framework": "^8.23.1",
     "@wdio/spec-reporter": "^8.23.1"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "mongoose": "^8.0.1"
   }
 }

@@ -137,12 +137,10 @@ class actionPage {
                 }
 
                 let userfollowersCountValue = await (this.followersCount).getText();
-
-                let userfollowersCount = await this.convertToNumber(userfollowersCountValue);
-
                 let userfollowingCountValue = await (this.followingCount).getText();
 
-                let userfollowingCount = await this.convertToNumber(userfollowingCountValue);
+                let userfollowersCount = await this.convertToNumber(userfollowersCountValue);
+                let userfollowingCount = userfollowingCountValue;
 
                 await this.following.click();
 

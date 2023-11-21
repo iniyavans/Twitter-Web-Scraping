@@ -1,20 +1,25 @@
 const { expect } = require('@wdio/globals')
-const ActionPage = require('../pageobjects/action.page')
+const ActionPage = require('../pageobjects/action.page');
+const storeScrapData = require('../../src/controller/user-controller');
+const dotenv = require('dotenv');
+const env = dotenv.config().parsed
 
 describe('Scrape the details', () => {
     it('Scrape the details', async () => {
 
-        let userName = 'iniyavan_choco_'
+        let userName = env.TWITTER_USERNAME
 
-        let password = 'Iniyavan420@'
+        let password = env.TWITTER_PASSWORD
 
         await ActionPage.userLogin(userName, password);
 
         let keyword = 'Crypto'
 
-        let value = await ActionPage.scrapeSearchResult(keyword);
+        value = await ActionPage.scrapeSearchResult(keyword);
 
-        console.log(value);
+        storeScrapData(value ,env)
+
     })
 });
 
+module.exports = { env }; 
