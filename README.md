@@ -1,8 +1,3 @@
----
-runme:
-  id: 01HFRYQFFMANM8WMB1STW6Q7ZK
-  version: v2.0
----
 
 # web3-X-Web-Scraping
 
