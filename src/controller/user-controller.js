@@ -20,15 +20,6 @@ async function storeScrapData(values, env) {
             website: value[9],
             following_users: value[10].filter(item => typeof item !== 'object')
         }));
-        /*const array = values[0][10]
-
-        console.log(array)
-
-        for(let i = 0; i < array.length; i++) {
-            if (typeof array[i] === 'object' && array[i] !== null) {
-              console.log(array[i]);
-            }
-          }*/
 
         console.log(dataToStore)
 
