@@ -161,21 +161,31 @@ class actionPage {
 
                 await this.enableFollow.waitForClickable(10000);    // Wait until the follow button enebale.
 
-                const peopleFollowingnames = await $$(`//div//div//a[contains(@href, '/')]//div//div//span[contains(text(), '@')]`);    // Initalize the following user name with a variable. 
+                for (let i = 1; i <= 15; i++) {
 
-                for (const element of peopleFollowingnames) {   // Scrape the user name from the following page.
+                    await browser.pause(1000);
 
-                    let followingUsers = await element.getText();   // Get the user following user name.
+                    await browser.scroll(0, i * 100)
 
-                    followingUserName.push(followingUsers); // Add the values into the FollowingUserName array.
+                    const peopleFollowingnames = await $$(`//div//div//a[contains(@href, '/')]//div//div//span[contains(text(), '@')]`);    // Initalize the following user name with a variable. 
+
+                    for (const element of peopleFollowingnames) {   // Scrape the user name from the following page.
+
+                        let followingUsers = await element.getText();   // Get the user following user name.
+
+                        followingUserName.push(followingUsers); // Add the values into the FollowingUserName array.
+
+                    }
 
                 }
+
+                const followingUserNames = Array.from(new Set(followingUserName))
 
                 await browser.closeWindow();    // Close the active window.
 
                 await browser.switchWindow(`https://twitter.com/search?q=${Keyword}&src=typed_query&f=user`);   // Switch the window back to the home.
 
-                userDetail = [Keyword, Fullname, userName, userDescription, userfollowersCount, userfollowingCount, userLocation, userProfessional, userJoineddate, userWebsite, followingUserName]; // Organize all the values into the array.
+                userDetail = [Keyword, Fullname, userName, userDescription, userfollowersCount, userfollowingCount, userLocation, userProfessional, userJoineddate, userWebsite, followingUserNames]; // Organize all the values into the array.
 
                 userDetails.push(userDetail);   // Add the evenry details into the array.
             }

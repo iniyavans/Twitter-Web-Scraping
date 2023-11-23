@@ -11,7 +11,7 @@ const scrapedDataSchema = new mongoose.Schema({
     professional_category: String,
     joined_date: String,
     website: String,
-    following_users: [String],
+    following_users: [String ],
     created_at: {
         type: Date,
         default: Date.now

@@ -13,7 +13,7 @@ describe('Scrape the details', () => {
 
         await ActionPage.userLogin(userName, password);
 
-        let keyword = 'Crypto'
+        let keyword = env.X_KEYWORD
 
         const value = await ActionPage.scrapeSearchResult(keyword);
 

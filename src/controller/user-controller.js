@@ -18,8 +18,19 @@ async function storeScrapData(values, env) {
             professional_category: value[7],
             joined_date: value[8],
             website: value[9],
-            following_users: value[10]
+            following_users: value[10].filter(item => typeof item !== 'object')
         }));
+        /*const array = values[0][10]
+
+        console.log(array)
+
+        for(let i = 0; i < array.length; i++) {
+            if (typeof array[i] === 'object' && array[i] !== null) {
+              console.log(array[i]);
+            }
+          }*/
+
+        console.log(dataToStore)
 
         // Create documents in the database
         await ScrapedData.insertMany(dataToStore);
